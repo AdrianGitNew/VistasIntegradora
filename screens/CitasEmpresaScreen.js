@@ -2,35 +2,29 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from "react-native";
 import { useFonts } from "expo-font";
 
-const CitasScreen = () => {
-  const [userCitas, setUserCitas] = useState([
+const CitasEmpresaScreen = () => {
+  const [empresaCitas, setEmpresaCitas] = useState([
     {
       id: 1,
-      servicio: "Masaje Relajante",
-      fecha: "25 de enero de 2025",
-      hora: "10:00 a.m.",
-      precio: "$50.00",
-      local: "Estética Beautificiencia",
-      cliente: "Juan Pérez",
+      servicio: "Corte de Cabello",
+      fecha: "27 de enero de 2025",
+      hora: "11:00 a.m.",
+      precio: "$25.00",
+      cliente: "Carlos Martínez",
+      contacto: "carlosmartinez@gmail.com",
     },
     {
       id: 2,
-      servicio: "Spa Pedicure",
-      fecha: "26 de enero de 2025",
-      hora: "2:00 p.m.",
-      precio: "$40.00",
-      local: "Estética Beautificiencia",
-      cliente: "Ana García",
+      servicio: "Manicure Deluxe",
+      fecha: "28 de enero de 2025",
+      hora: "3:00 p.m.",
+      precio: "$30.00",
+      cliente: "Lucía Gómez",
+      contacto: "lucia.gomez@example.com",
     },
   ]);
 
-//Fuentes Personalizadas
-    const [fontsLoaded] = useFonts({
-    Playfair: require('../assets/PlayfairDisplay-VariableFont_wght.ttf'),
-    Raleway: require('../assets/Raleway-VariableFont_wght.ttf'),
-    });
-
-  const cancelarCita = (id, tipo) => {
+  const cancelarCita = (id) => {
     Alert.alert(
       "Cancelar Cita",
       "¿Estás seguro de que deseas cancelar esta cita?",
@@ -39,14 +33,17 @@ const CitasScreen = () => {
         {
           text: "Sí",
           onPress: () => {
-            if (tipo === "user") {
-              setUserCitas((prevCitas) => prevCitas.filter((cita) => cita.id !== id));
-            }
+            setEmpresaCitas((prevCitas) => prevCitas.filter((cita) => cita.id !== id));
           },
         },
       ]
     );
   };
+
+  const [fontsLoaded] = useFonts({
+    Playfair: require("../assets/PlayfairDisplay-VariableFont_wght.ttf"),
+    Raleway: require("../assets/Raleway-VariableFont_wght.ttf"),
+  });
 
   const renderCitas = (citas) => (
     <ScrollView>
@@ -54,30 +51,23 @@ const CitasScreen = () => {
         citas.map((cita) => (
           <View key={cita.id} style={styles.card}>
             <Text style={styles.serviceTitle}>{cita.servicio}</Text>
+            <Text style={styles.serviceDetails}>Cliente: {cita.cliente}</Text>
+            <Text style={styles.serviceDetails}>Contacto: {cita.contacto}</Text>
             <Text style={styles.serviceDetails}>Fecha: {cita.fecha}</Text>
             <Text style={styles.serviceDetails}>Hora: {cita.hora}</Text>
             <Text style={styles.serviceDetails}>Precio: {cita.precio}</Text>
 
             <TouchableOpacity
               style={styles.cancelButton}
-              onPress={() => cancelarCita(cita.id, "user")}
+              onPress={() => cancelarCita(cita.id)}
             >
               <Text style={styles.cancelButtonText}>Cancelar Cita</Text>
-            </TouchableOpacity>
-
-            {/* Botón de Ver más */}
-            <TouchableOpacity style={styles.detailsButton}>
-              <Text style={styles.detailsText}>
-                Ver más
-              </Text>
             </TouchableOpacity>
           </View>
         ))
       ) : (
         <View style={styles.card}>
-          <Text style={styles.message}>
-            No tienes citas reservadas.
-          </Text>
+          <Text style={styles.message}>No tienes citas programadas.</Text>
         </View>
       )}
     </ScrollView>
@@ -85,9 +75,8 @@ const CitasScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tus citas</Text>
-
-      {renderCitas(userCitas)}
+      <Text style={styles.title}>Citas Programadas</Text>
+      {renderCitas(empresaCitas)}
     </View>
   );
 };
@@ -101,11 +90,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#000",
+    color: "#033d3e",
     textAlign: "center",
     marginBottom: 20,
     fontFamily: "Playfair",
-    marginTop: "5%"
+    marginTop: "5%",
   },
   card: {
     backgroundColor: "#fdf8d5",
@@ -121,16 +110,15 @@ const styles = StyleSheet.create({
   serviceTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#000",
+    color: "#033d3e",
     marginBottom: 10,
-    fontFamily: "Raleway"
-
+    fontFamily: "Raleway",
   },
   serviceDetails: {
     fontSize: 16,
-    color: "#000",
+    color: "#033d3e",
     marginBottom: 5,
-    fontFamily: "Raleway"
+    fontFamily: "Raleway",
   },
   cancelButton: {
     marginTop: 15,
@@ -144,25 +132,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  detailsButton: {
-    marginTop: 10,
-    backgroundColor: "#266150",
-    padding: 8,
-    borderRadius: 5,
-  },
-  detailsText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   message: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#000",
-    marginBottom: 10,
+    color: "#033d3e",
     textAlign: "center",
   },
 });
 
-export default CitasScreen;
+export default CitasEmpresaScreen;

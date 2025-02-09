@@ -16,6 +16,7 @@ import LoginScreen from "./screens/LoginScreen";
 import RegistroEmpresaScreen from "./screens/RegistroEmpresaScreen";
 import ReservarScreen from "./screens/ReservarScreen";
 import ServiciosScreen from "./screens/ServiciosScreen";
+import CitasEmpresaScreen from "./screens/CitasEmpresaScreen";
 
 const HomeStackNavigator = createNativeStackNavigator();
 const userId =1
@@ -137,6 +138,17 @@ function Mytabs() {
                 }}
             />
         )}
+            <Tab.Screen 
+                name="CitasEmpresa" 
+                component={CitasEmpresaScreen} 
+                options={{
+                    tabBarLabel: 'Citas',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="calendar" size={24} color="#266150" />
+                    ),
+                    headerShown: false,
+                }}
+            />
         </Tab.Navigator>
     );
 }
