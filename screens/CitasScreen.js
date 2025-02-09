@@ -57,19 +57,13 @@ const CitasScreen = () => {
             <Text style={styles.serviceDetails}>Fecha: {cita.fecha}</Text>
             <Text style={styles.serviceDetails}>Hora: {cita.hora}</Text>
             <Text style={styles.serviceDetails}>Precio: {cita.precio}</Text>
+            <Text style={styles.serviceDetails}>Local: {cita.local}</Text>
 
             <TouchableOpacity
               style={styles.cancelButton}
               onPress={() => cancelarCita(cita.id, "user")}
             >
               <Text style={styles.cancelButtonText}>Cancelar Cita</Text>
-            </TouchableOpacity>
-
-            {/* Botón de Ver más */}
-            <TouchableOpacity style={styles.detailsButton}>
-              <Text style={styles.detailsText}>
-                Ver más
-              </Text>
             </TouchableOpacity>
           </View>
         ))
